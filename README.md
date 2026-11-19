@@ -1,4 +1,4 @@
-# telco-churn-dashboard
+# Telco-churn-dashboard
 Dashboard showing Telcom churn  
 # 📊 Telecommunications Customer Churn Analytics
 
