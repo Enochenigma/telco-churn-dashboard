@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telecom Customer Churn Analysis | BigQuery & Looker Studio</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        header {
+            max-width: 1200px;
+            margin: 0 auto 30px auto;
+            text-align: center;
+            padding: 36px 20px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .badge {
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .dashboard-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .iframe-responsive {
+            position: relative;
+            width: 100%;
+            padding-top: 73.8%; /* Maintains your exact 600:443 aspect ratio responsively */
+            border-radius: 8px;
+            overflow: hidden;
+            background: #0f172a;
+        }
+
+        .iframe-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .grid-two {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .info-card h2 {
+            color: var(--accent);
+            font-size: 1.25rem;
+            margin-bottom: 14px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .info-card ul {
+            list-style-position: inside;
+            color: var(--text-muted);
+        }
+
+        .info-card li {
+            margin-bottom: 10px;
+        }
+
+        .info-card strong {
+            color: var(--text-main);
+        }
+
+        code {
+            background: #0f172a;
+            color: #7dd3fc;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Telecommunications Customer Churn Dashboard</h1>
+        <p>End-to-End Cloud Data Engineering, SQL Transformation & Interactive Business Intelligence</p>
+        <div class="badge-row">
+            <span class="badge">Google BigQuery</span>
+            <span class="badge">SQL Data Cleaning</span>
+            <span class="badge">Looker Studio</span>
+            <span class="badge">HTML5 & CSS3</span>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Interactive Looker Studio Embed -->
+        <section class="dashboard-card">
+            <div class="iframe-responsive">
+                <iframe 
+                    src="https://datastudio.google.com/embed/reporting/ce972b52-98d2-402e-ad88-52f49ce44453/page/n2rDG" 
+                    frameborder="0" 
+                    allowfullscreen 
+                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Architecture & Key Findings -->
+        <section class="grid-two">
+            <div class="info-card">
+                <h2>Project Data Pipeline</h2>
+                <ul>
+                    <li><strong>Data Warehouse:</strong> Ingested 7,043 customer records into Google BigQuery (<code>customer_data.Telco</code>).</li>
+                    <li><strong>SQL Cleaning:</strong> Handled empty spaces in <code>TotalCharges</code> via <code>SAFE_CAST</code> to <code>FLOAT64</code> and standardized boolean <code>Churn</code> flags into <code>Yes</code>/<code>No</code> categories.</li>
+                    <li><strong>Feature Engineering:</strong> Created lifecycle <code>Tenure Group</code> buckets and custom churn rate aggregations in Looker Studio.</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h2>Key Business Insights</h2>
+                <ul>
+                    <li><strong>Churn Definition:</strong> Customers who cancelled their telecommunications subscription within the last month (~26.5% baseline).</li>
+                    <li><strong>Contract Risk:</strong> Month-to-month subscribers drive the vast majority of customer attrition compared to 1- and 2-year contracts.</li>
+                    <li><strong>Early Lifecycle Vulnerability:</strong> Customers in their first 0–6 months show the steepest churn rate, highlighting the need for early onboarding retention.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built with Google BigQuery, Looker Studio, HTML5 & CSS3</p>
+    </footer>
+
+</body>
+</html>
